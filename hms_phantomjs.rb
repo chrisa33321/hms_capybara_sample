@@ -8,6 +8,7 @@
 # the api                                           #
 ####################################################
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require_relative 'gh_api.rb'
 
 # Handles navigating through the GitHub site
@@ -15,7 +16,8 @@ class SearchResults
   include GitHubApi
 
   def initialize
-    @session = Capybara::Session.new(:selenium)
+    Capybara.javascript_driver = :poltergeist
+    @session = Capybara::Session.new(:poltergeist)
     @search_css = '.form-control.header-search-input.js-site-search-focus'
     @user_tab_xpath = '/html/body/div[4]/div[1]/div[2]/div/div[1]/nav/a[4]'
   end
